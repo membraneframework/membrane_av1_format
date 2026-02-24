@@ -34,13 +34,8 @@ defmodule Membrane.AV1 do
           tier: 0..1 | nil,
           width: pos_integer() | nil,
           height: pos_integer() | nil,
-          framerate: {pos_integer(), pos_integer()} | nil
+          framerate: {non_neg_integer(), pos_integer()} | nil
         }
 
-  defstruct profile: nil,
-            level: nil,
-            tier: nil,
-            width: nil,
-            height: nil,
-            framerate: nil
+  defstruct [:profile, :level, :tier, :width, :height, :framerate]
 end
