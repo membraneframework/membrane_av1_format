@@ -8,7 +8,7 @@ defmodule Membrane.AV1.Mixfile do
     [
       app: :membrane_av1_format,
       version: @version,
-      elixir: "~> 1.13",
+      elixir: "~> 1.18",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
