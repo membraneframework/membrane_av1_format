@@ -8,6 +8,10 @@ It's a part of the [Membrane Framework](https://membrane.stream).
 
 ## Installation
 
+Unless you're developing an Membrane Element it's unlikely that you need to use this package directly in your app, as normally it is going to be fetched as a dependency of any element that operates on AV1 video stream.
+
+However, if you are developing an Element or need to add it due to any other reason, just add the following line to your deps in the mix.exs and run mix deps.get.
+
 The package can be installed by adding `membrane_av1_format` to your list of dependencies in `mix.exs`:
 
 ```elixir
@@ -17,10 +21,6 @@ def deps do
   ]
 end
 ```
-
-## Usage
-
-TODO
 
 ## Copyright and License
 
