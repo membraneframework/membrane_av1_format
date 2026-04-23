@@ -25,17 +25,52 @@ defmodule Membrane.AV1 do
       }
   """
 
+  @type profile :: :main | :high | :professional
+  @type tier :: :main | :high
+  @type level :: String.t()
+  @type framerate :: {non_neg_integer(), pos_integer()}
+
   @typedoc """
   AV1 stream format.
   """
   @type t :: %__MODULE__{
-          profile: 0..2 | nil,
-          level: String.t() | nil,
-          tier: 0..1 | nil,
           width: pos_integer() | nil,
           height: pos_integer() | nil,
-          framerate: {non_neg_integer(), pos_integer()} | nil
+          profile: profile() | nil,
+          tier: tier() | nil,
+          level: level() | nil,
+          framerate: framerate() | nil
         }
 
-  defstruct [:profile, :level, :tier, :width, :height, :framerate]
+  defstruct [:width, :height, :profile, :level, :tier, :framerate]
+
+  @spec valid_levels() :: [level()]
+  def valid_levels() do
+    [
+      "2.0",
+      "2.1",
+      "2.2",
+      "2.3",
+      "3.0",
+      "3.1",
+      "3.2",
+      "3.3",
+      "4.0",
+      "4.1",
+      "4.2",
+      "4.3",
+      "5.0",
+      "5.1",
+      "5.2",
+      "5.3",
+      "6.0",
+      "6.1",
+      "6.2",
+      "6.3"
+      # "7.0",
+      # "7.1",
+      # "7.2",
+      # "7.3"
+    ]
+  end
 end

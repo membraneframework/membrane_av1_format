@@ -17,7 +17,7 @@ The package can be installed by adding `membrane_av1_format` to your list of dep
 ```elixir
 def deps do
   [
-    {:membrane_av1_format, "~> 0.1.0"}
+    {:membrane_av1_format, "~> 0.2.0"}
   ]
 end
 ```
