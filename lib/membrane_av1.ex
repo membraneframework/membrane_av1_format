@@ -4,73 +4,69 @@ defmodule Membrane.AV1 do
 
   This module defines the stream format struct used for capability negotiation
   between Membrane elements processing AV1 video streams.
-
-  ## Fields
-
-  - `profile` - AV1 profile: 0 (Main), 1 (High), 2 (Professional)
-  - `level` - AV1 level string (e.g., "4.0", "5.1")
-  - `tier` - AV1 tier: 0 (Main), 1 (High)
-  - `width` - Frame width in pixels (optional)
-  - `height` - Frame height in pixels (optional)
-  - `framerate` - Framerate as {num, denom} tuple (optional)
-
-  ## Example
-
-      %Membrane.AV1{
-        profile: 0,
-        level: "4.0",
-        tier: 0,
-        width: 1920,
-        height: 1080
-      }
   """
 
+  @typedoc """
+  Determines the bit depth and subsampling constraints of a bitstream, with which a decoder
+  must be compliant. The constraints are defined in
+  [Annex A, chapter A.2. of AV1 specification](https://aomediacodec.github.io/av1-spec/#profiles).
+  """
   @type profile :: :main | :high | :professional
+
+  @typedoc """
+  Determines the resolution and performance constraints of a bitstream, with which a decoder
+  must be compliant. The bitrate constraint for levels 4.0 and higher is also determined
+  by `t:tier/0`. The constraints are defined in
+  [Annex A, chapter A.3. of AV1 specification](https://aomediacodec.github.io/av1-spec/#levels).
+  """
+  @type level ::
+          :"2.0"
+          | :"2.1"
+          | :"2.2"
+          | :"2.3"
+          | :"3.0"
+          | :"3.1"
+          | :"3.2"
+          | :"3.3"
+          | :"4.0"
+          | :"4.1"
+          | :"4.2"
+          | :"4.3"
+          | :"5.0"
+          | :"5.1"
+          | :"5.2"
+          | :"5.3"
+          | :"6.0"
+          | :"6.1"
+          | :"6.2"
+          | :"6.3"
+          | :"7.0"
+          | :"7.1"
+          | :"7.2"
+          | :"7.3"
+
+  @typedoc """
+  Determines the bitrate and compression rate constraint of a bitstream for a given `t:level/0`.
+  In the table defining the constraints of levels
+  ([Annex A, chapter A.3. of AV1 specification](https://aomediacodec.github.io/av1-spec/#levels)),
+  tier determines whether values from MainMbps and MainCR (`:main` tier), or HighMbps and HighCR
+  for (`:high` tier) are assumed. `:main` is the only valid tier for levels lower than 4.0.
+  """
   @type tier :: :main | :high
-  @type level :: String.t()
+
   @type framerate :: {non_neg_integer(), pos_integer()}
 
   @typedoc """
   AV1 stream format.
   """
   @type t :: %__MODULE__{
+          profile: profile() | nil,
+          level: level() | nil,
+          tier: tier() | nil,
           width: pos_integer() | nil,
           height: pos_integer() | nil,
-          profile: profile() | nil,
-          tier: tier() | nil,
-          level: level() | nil,
           framerate: framerate() | nil
         }
 
-  defstruct [:width, :height, :profile, :level, :tier, :framerate]
-
-  @spec valid_levels() :: [level()]
-  def valid_levels() do
-    [
-      "2.0",
-      "2.1",
-      "2.2",
-      "2.3",
-      "3.0",
-      "3.1",
-      "3.2",
-      "3.3",
-      "4.0",
-      "4.1",
-      "4.2",
-      "4.3",
-      "5.0",
-      "5.1",
-      "5.2",
-      "5.3",
-      "6.0",
-      "6.1",
-      "6.2",
-      "6.3"
-      # "7.0",
-      # "7.1",
-      # "7.2",
-      # "7.3"
-    ]
-  end
+  defstruct [:profile, :level, :tier, :width, :height, :framerate]
 end
